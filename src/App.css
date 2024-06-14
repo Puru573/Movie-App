@@ -1,38 +1,172 @@
-.App {
-  text-align: center;
+*{
+  margin:0;
+  padding:0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+html,body{
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.navbar{
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap:50px;
+  background-color: bisque;
+
+} 
+.movie{
+  font-size:30px;
+  font-weight: bold;
+  text-decoration: none;
+}
+.favourite{
+  margin-top:3px;
+  font-size:28px;
+  font-weight: bold;
+  text-decoration: none;
+}
+h2{
+  margin-top: 5px;
+}
+
+h1,h2{
+  cursor: pointer;
+}
+
+.card-banner{
+  height: 70vh;
+  width:100vw ;
+  margin-top: 1vh;
+  margin-bottom: 1vh;
+  color:white;
+}
+
+.banner-image{
+  height:70vh;
+  width: 100vw;
+}
+
+.banner-title{
+  position: absolute;
+  top:45vh;
+  left:2vw;
+}
+
+.banner-text{
+  position:absolute;
+  top:50vh;
+  left:2vw;
+  height:4.5rem;
+  overflow: hidden;
+  margin-right: 5vw;
+}
+.btn-favourite{
+  position: absolute;
+  bottom:2rem;
+  display: flex;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  width: 100%;
+}
+.Movie-List{
+  display: flex;
+  flex-wrap: wrap;
+  padding: 1rem;
+  justify-content: center;
+}
+
+.Movie-card{
+  position: relative;
+  width:25vw;
+  margin: 1rem;
+}
+.movie-title{
+  position: absolute;
   color: white;
+  font-size:20px;
+  left:3rem;
+  top:1rem;
+}
+.movie-img{
+  height:45vh;
 }
 
-.App-link {
-  color: #61dafb;
+.page{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.prev{
+  cursor: pointer;
+}
+.next{
+  cursor: pointer;
+}
+.table-image{
+  width:8rem;
+}
+.favourite-list{
+  padding:3rem;
+}
+.favourite-list ul{
+  list-style: none;
+}
+.favourite-table{
+  padding:3rem;
+  overflow-y: auto;
+}
+.table{
+  cursor: pointer;
+}
+.all-genre{
+  background-color: blue;
+  font-weight: bold;
+  color:white
+}
+.remaining-genre{
+  color: blue;
+  font-weight: bold;
+}
+.favourite-pagination{
+  cursor: pointer;
+}
+@media screen and (max-width:400px) {
+  .banner-image{
+    height:40vh;
   }
-  to {
-    transform: rotate(360deg);
+  .banner-title{
+    top:25vh;
+    left:5vw;
   }
+  .banner-text{
+    top:29vh;
+    left:5vw;
+    margin-right:5vw;
+  }
+  .card-banner{
+    height:40vh
+
+  }
+  .btn-favourite{
+    bottom:2rem;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .movie-img{
+    width:35vw
+  }
+  .btn{
+    margin-left: 2rem;
+  }
+  .Movie-List{
+    margin: 0 auto;
+    gap:2rem;
+  }
+
 }

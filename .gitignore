@@ -5,6 +5,10 @@
 /.pnp
 .pnp.js
 
+# Package files
+*.jar
+package-lock.json
+
 # testing
 /coverage
 
