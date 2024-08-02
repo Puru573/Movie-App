@@ -157,6 +157,7 @@ h1,h2{
   text-align: center;
 }
 @media screen and (max-width:400px) {
+
   .navbar{
     display: flex;
     justify-content: flex-start;
@@ -174,6 +175,7 @@ h1,h2{
   }
   .favourite-table{
     display: flex;
+    flex-direction: column;
     overflow-y: auto;
   }
   .Movie-card{
@@ -253,6 +255,7 @@ h1,h2{
   }
   .favourite-table{
     display: flex;
+    flex-direction: column;
     overflow-y: auto;
   }
   .Movie-card{

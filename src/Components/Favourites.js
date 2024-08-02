@@ -245,7 +245,7 @@ class Favourites extends Component {
                             }
                         </div>
                         <div className='col-lg-9 col-sm-12 favourite-table'>
-                            <div class="input-group flex-nowrap">
+                            <div class="input-group flex-nowrap ">
                                 <input type="text" placeholder="search movies..." value={this.state.search} onChange={(e) => this.setState({ search: e.target.value })} class="form-control" />
                                 <input type="number" placeholder="Type numbers..." value={this.state.limit} onChange={(e) => this.setState({ limit: e.target.value })} class="form-control" />
                             </div>
