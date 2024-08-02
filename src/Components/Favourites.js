@@ -176,6 +176,14 @@ class Favourites extends Component {
         })
     }
 
+    handleLimit=(e)=>{
+        if(e.target.value > 0){
+            this.setState({
+                limit: e.target.value
+            })
+        }
+    }
+
 
     render() {
         let genreId = {
@@ -212,16 +220,21 @@ class Favourites extends Component {
             filterArr = filterArr.filter((movieObj) => genreId[movieObj.genre_ids[0]] == this.state.currGenre) //we get the movies according to the currGenre
         }
         // pagination and numbering logic
-
-        let pages = Math.ceil(filterArr.length / this.state.limit);
-        let pageArr = [];
-        for (let i = 1; i <= pages; i++) {
-            pageArr.push(i)
-        }
-
-        let si = (this.state.currPage - 1) * this.state.limit;
-        let ei = Number(si) + Number(this.state.limit);
-        filterArr = filterArr.slice(si, ei);
+       
+            let pages = Math.ceil(filterArr.length / this.state.limit );
+            let pageArr = [];
+            console.log("[ages",pages);
+            
+                for (let i = 1; i <= pages;i++) {
+                    pageArr.push(i)
+                }
+        
+                let si = (this.state.currPage - 1) * this.state.limit;
+                let ei = Number(si) + Number(this.state.limit);
+                filterArr = filterArr.slice(si, ei);
+            
+        
+        
 
         return (
             <div>
@@ -229,14 +242,14 @@ class Favourites extends Component {
                     <div className="row favourite-content">
                         <div className='col-lg-3 col=sm-12 favourite-list'>
                             {
-                                this.state.genre.map((genre) => (
-                                    <ul class="list-group table">
+                                this.state.genre.map((genre,index) => (
+                                    <ul key={index} className="list-group table">
 
                                         {this.state.currGenre === genre
                                             ?
-                                            <li class="list-group-item" className='all-genre'>{genre}</li>
+                                            <li className="list-group-item all-genre" >{genre}</li>
                                             :
-                                            <li class="list-group-item remaining-genre" onClick={() => this.handleGenre(genre)}>{genre}</li>
+                                            <li className="list-group-item remaining-genre" onClick={() => this.handleGenre(genre)}>{genre}</li>
                                         }
 
                                     </ul>
@@ -245,19 +258,19 @@ class Favourites extends Component {
                             }
                         </div>
                         <div className='col-lg-9 col-sm-12 favourite-table'>
-                            <div class="input-group flex-nowrap ">
-                                <input type="text" placeholder="search movies..." value={this.state.search} onChange={(e) => this.setState({ search: e.target.value })} class="form-control" />
-                                <input type="number" placeholder="Type numbers..." value={this.state.limit} onChange={(e) => this.setState({ limit: e.target.value })} class="form-control" />
+                            <div className="input-group flex-nowrap ">
+                                <input type="text" placeholder="search movies..." value={this.state.search} onChange={(e) => this.setState({ search: e.target.value })} className="form-control" />
+                                <input type="number" placeholder="Type numbers..." value={this.state.limit} onChange={this.handleLimit} className="form-control" />
                             </div>
                             <div className='row'>
-                                <table class="table">
+                                <table className="table">
                                     <thead>
                                         <tr>
                                             <th scope="col">Title</th>
                                             <th scope="col">Genre</th>
-                                            <th scope="col"><i class="fas fa-sort-up" onClick={this.sortPopularityDesc} />Popularity<i class="fas fa-sort-down" onClick={this.sortPopularityAsc}></i></th>
-                                            <th scope="col"><i class="fas fa-sort-up" onClick={this.sortDateDesc} />Release_Date<i class="fas fa-sort-down" onClick={this.sortDateAsc}></i></th>
-                                            <th scope="col"><i class="fas fa-sort-up" onClick={this.sortRatingDesc} />Rating<i class="fas fa-sort-down" onClick={this.sortRatingAsc}></i></th>
+                                            <th scope="col"><i className="fas fa-sort-up" onClick={this.sortPopularityDesc} />Popularity<i className="fas fa-sort-down" onClick={this.sortPopularityAsc}></i></th>
+                                            <th scope="col"><i className="fas fa-sort-up" onClick={this.sortDateDesc} />Release_Date<i className="fas fa-sort-down" onClick={this.sortDateAsc}></i></th>
+                                            <th scope="col"><i className="fas fa-sort-up" onClick={this.sortRatingDesc} />Rating<i className="fas fa-sort-down" onClick={this.sortRatingAsc}></i></th>
                                             <th scope="col"></th>
                                         </tr>
                                     </thead>
@@ -266,13 +279,13 @@ class Favourites extends Component {
                                         {
                                             filterArr.length === 0 ? <div className='favouriteHeading'><h3>No movies found by your Search in this Genre</h3></div> :
                                                 filterArr.map((movieObj) => (
-                                                    <tr>
+                                                    <tr key={movieObj.id}>
                                                         <td scope="row"><img src={`https://image.tmdb.org/t/p/original${movieObj.backdrop_path}`} alt={movieObj.title} className='table-image' />{movieObj.original_title}</td>
                                                         <td>{genreId[movieObj.genre_ids[0]]}</td>
                                                         <td>{movieObj.popularity}</td>
                                                         <td>{movieObj.release_date}</td>
                                                         <td>{movieObj.vote_average}</td>
-                                                        <td><button type="button" class="btn btn-danger" onClick={() => this.handleDelete(movieObj)}>Delete</button></td>
+                                                        <td><button type="button" className="btn btn-danger" onClick={() => this.handleDelete(movieObj)}>Delete</button></td>
                                                     </tr>
                                                 ))
 
@@ -280,11 +293,11 @@ class Favourites extends Component {
                                     </tbody>
                                 </table>
                                 <nav aria-label="Page navigation example">
-                                    <ul class="pagination">
+                                    <ul className="pagination">
                                         {
-                                            pageArr.map((page) => (
+                                            pageArr.map((page,index) => (
                                                 filterArr.length === 0 ? onclick = (this.handleClick(page)) :
-                                                    <li class="page-item favourite-pagination"><a class="page-link" onClick={() => this.handleClick(page)}>{page}</a></li>
+                                                    <li key={index} className="page-item favourite-pagination"><a className="page-link" onClick={() => this.handleClick(page)}>{page}</a></li>
                                             ))
                                         }
                                     </ul>

@@ -177,6 +177,10 @@ h1,h2{
     display: flex;
     flex-direction: column;
     overflow-y: auto;
+    width: 100vw;
+  }
+  .input-group{
+    width: 100vw;
   }
   .Movie-card{
     display: flex;
@@ -257,6 +261,9 @@ h1,h2{
     display: flex;
     flex-direction: column;
     overflow-y: auto;
+  }
+  .input-group{
+    width: 100vw;
   }
   .Movie-card{
     display: flex;
