@@ -7,7 +7,7 @@ class Favourites extends Component {
             currGenre: 'All Genre',
             movies: [],
             search: '',
-            releaseDate:[],
+            releaseDate: [],
             currPage: 1,
             limit: 5
         })
@@ -55,11 +55,11 @@ class Favourites extends Component {
         })
 
     }
-    handleDuplicate=(tempArr)=>{
-        for(let i=0;i<=tempArr.length-1;i++){
-            for(let j=i+1;j<tempArr.length;j++)
-                if(tempArr[i]===tempArr[j]){
-                    tempArr.splice(j,1);
+    handleDuplicate = (tempArr) => {
+        for (let i = 0; i <= tempArr.length - 1; i++) {
+            for (let j = i + 1; j < tempArr.length; j++)
+                if (tempArr[i] === tempArr[j]) {
+                    tempArr.splice(j, 1);
                     j--;
                 }
         }
@@ -98,7 +98,7 @@ class Favourites extends Component {
             let latestGenre = genreId[movieObj.genre_ids[0]];
             tempArr.push(latestGenre);
         })
-       let latestTempArr=this.handleDuplicate(tempArr)
+        let latestTempArr = this.handleDuplicate(tempArr)
         tempArr.unshift("All Genre");
         this.setState({
             movies: [...filteredData],
@@ -148,7 +148,7 @@ class Favourites extends Component {
         })
     }
 
-    sortDateAsc=()=>{
+    sortDateAsc = () => {
         let temp = this.state.movies;
         temp.sort(function (objA, objB) {
             let dateA = new Date(objA.release_date);
@@ -159,7 +159,7 @@ class Favourites extends Component {
             movies: [...temp]
         })
     }
-    sortDateDesc=()=>{
+    sortDateDesc = () => {
         let temp = this.state.movies;
         temp.sort(function (objA, objB) {
             let dateA = new Date(objA.release_date);
@@ -264,17 +264,17 @@ class Favourites extends Component {
                                     <tbody>
 
                                         {
-                                            filterArr.length===0 ? <div className='favouriteHeading'><h3>No movies found by your Search in this Genre</h3></div>:
-                                            filterArr.map((movieObj) => (
-                                                <tr>
-                                                    <td scope="row"><img src={`https://image.tmdb.org/t/p/original${movieObj.backdrop_path}`} alt={movieObj.title} className='table-image' />{movieObj.original_title}</td>
-                                                    <td>{genreId[movieObj.genre_ids[0]]}</td>
-                                                    <td>{movieObj.popularity}</td>
-                                                    <td>{movieObj.release_date}</td>
-                                                    <td>{movieObj.vote_average}</td>
-                                                    <td><button type="button" class="btn btn-danger" onClick={() => this.handleDelete(movieObj)}>Delete</button></td>
-                                                </tr>
-                                            ))
+                                            filterArr.length === 0 ? <div className='favouriteHeading'><h3>No movies found by your Search in this Genre</h3></div> :
+                                                filterArr.map((movieObj) => (
+                                                    <tr>
+                                                        <td scope="row"><img src={`https://image.tmdb.org/t/p/original${movieObj.backdrop_path}`} alt={movieObj.title} className='table-image' />{movieObj.original_title}</td>
+                                                        <td>{genreId[movieObj.genre_ids[0]]}</td>
+                                                        <td>{movieObj.popularity}</td>
+                                                        <td>{movieObj.release_date}</td>
+                                                        <td>{movieObj.vote_average}</td>
+                                                        <td><button type="button" class="btn btn-danger" onClick={() => this.handleDelete(movieObj)}>Delete</button></td>
+                                                    </tr>
+                                                ))
 
                                         }
                                     </tbody>
@@ -283,8 +283,8 @@ class Favourites extends Component {
                                     <ul class="pagination">
                                         {
                                             pageArr.map((page) => (
-                                                <li class="page-item favourite-pagination"><a class="page-link" onClick={() => this.handleClick(page)}>{page}</a></li>
-
+                                                filterArr.length === 0 ? onclick = (this.handleClick(page)) :
+                                                    <li class="page-item favourite-pagination"><a class="page-link" onClick={() => this.handleClick(page)}>{page}</a></li>
                                             ))
                                         }
                                     </ul>
