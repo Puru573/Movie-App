@@ -223,7 +223,6 @@ class Favourites extends Component {
        
             let pages = Math.ceil(filterArr.length / this.state.limit );
             let pageArr = [];
-            console.log("[ages",pages);
             
                 for (let i = 1; i <= pages;i++) {
                     pageArr.push(i)
