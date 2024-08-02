@@ -12,12 +12,13 @@ html,body{
 
 .navbar{
   display: flex;
-  flex-direction: row;
   justify-content: flex-start;
-  gap:50px;
+  gap:4rem;
   background-color: bisque;
 
 } 
+
+
 .movie{
   font-size:30px;
   font-weight: bold;
@@ -64,6 +65,13 @@ h1,h2{
   overflow: hidden;
   margin-right: 5vw;
 }
+.container{
+  position: absolute;
+  bottom:10rem;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
 .btn-favourite{
   position: absolute;
   bottom:2rem;
@@ -87,8 +95,12 @@ h1,h2{
   position: absolute;
   color: white;
   font-size:20px;
-  left:3rem;
-  top:1rem;
+  text-align: center;
+  bottom: 6rem;
+}
+.movie-date{
+  color: white;
+  font-size:20px;
 }
 .movie-img{
   height:45vh;
@@ -134,16 +146,72 @@ h1,h2{
 .favourite-pagination{
   cursor: pointer;
 }
+.headingStyle{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 500px;
+  overflow-y: hidden;
+}
+.infinite-loader{
+  text-align: center;
+}
 @media screen and (max-width:400px) {
+  .navbar{
+    display: flex;
+    justify-content: flex-start;
+    gap:1rem;
+    background-color: bisque;
+  
+  } 
+  .headingStyle{
+    text-align: center;
+  }
+  .favouriteHeading h3{
+    font-size: 15px;
+    text-align: center;
+    width:50vw
+  }
+  .favourite-table{
+    display: flex;
+    overflow-y: auto;
+  }
+  .Movie-card{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height:45vh;
+    width:30vw
+
+  }
+  .movie-title{
+    position: absolute;
+    color: white;
+    font-size:12px;
+    text-align: center;
+  }
+  .movie-date{
+    color: white;
+    font-size:13px;
+    font-weight: bold;
+  }
+  
+  .container{
+    position: absolute;
+    bottom:6rem;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
   .banner-image{
     height:40vh;
   }
   .banner-title{
-    top:25vh;
+    top:20vh;
     left:5vw;
   }
   .banner-text{
-    top:29vh;
+    top:26vh;
     left:5vw;
     margin-right:5vw;
   }
@@ -152,7 +220,7 @@ h1,h2{
 
   }
   .btn-favourite{
-    bottom:2rem;
+    bottom:1rem;
     display: flex;
     justify-content: center;
     width: 100%;
@@ -161,8 +229,84 @@ h1,h2{
   .movie-img{
     width:35vw
   }
-  .btn{
-    margin-left: 2rem;
+  .Movie-List{
+    margin: 0 auto;
+    gap:2rem;
+  }
+
+}
+@media screen and (max-width:426px) {
+  .navbar{
+    display: flex;
+    justify-content: flex-start;
+    gap:1rem;
+    background-color: bisque;
+  
+  } 
+  .headingStyle{
+    text-align: center;
+  }
+  .favouriteHeading h3{
+    font-size: 15px;
+    text-align: center;
+    width:50vw
+  }
+  .favourite-table{
+    display: flex;
+    overflow-y: auto;
+  }
+  .Movie-card{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height:45vh;
+    width:30vw
+
+  }
+  .movie-title{
+    position: absolute;
+    color: white;
+    font-size:12px;
+    text-align: center;
+  }
+  .movie-date{
+    color: white;
+    font-size:13px;
+    font-weight: bold;
+  }
+  
+  .container{
+    position: absolute;
+    bottom:6rem;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+  .banner-image{
+    height:40vh;
+  }
+  .banner-title{
+    top:20vh;
+    left:5vw;
+  }
+  .banner-text{
+    top:26vh;
+    left:5vw;
+    margin-right:5vw;
+  }
+  .card-banner{
+    height:40vh
+
+  }
+  .btn-favourite{
+    bottom:1rem;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .movie-img{
+    width:35vw
   }
   .Movie-List{
     margin: 0 auto;

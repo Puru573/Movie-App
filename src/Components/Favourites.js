@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { movies } from './getMovies'
 class Favourites extends Component {
     constructor() {
         super();
@@ -8,8 +7,9 @@ class Favourites extends Component {
             currGenre: 'All Genre',
             movies: [],
             search: '',
-            currPage:1,
-            limit:5
+            releaseDate:[],
+            currPage: 1,
+            limit: 5
         })
     }
 
@@ -55,61 +55,124 @@ class Favourites extends Component {
         })
 
     }
+    handleDuplicate=(tempArr)=>{
+        for(let i=0;i<=tempArr.length-1;i++){
+            for(let j=i+1;j<tempArr.length;j++)
+                if(tempArr[i]===tempArr[j]){
+                    tempArr.splice(j,1);
+                    j--;
+                }
+        }
+        return tempArr;
+    }
     handleDelete = (movieObj) => {
+        let genreId = {
+            28: "Action",
+            12: "Adventure",
+            16: "Animation",
+            35: "Comedy",
+            80: "Crime",
+            99: "Documentary",
+            18: "Drama",
+            10751: "Family",
+            14: "Fantasy",
+            36: "History",
+            27: "Horror",
+            10402: "Music",
+            9648: "Mystery",
+            10749: "Romance",
+            878: "Sci-Fi",
+            10770: "TV",
+            53: "Thriller",
+            10752: "War",
+            37: "Western",
+        };
+        let tempArr = [];
         let movie = JSON.parse(localStorage.getItem("movies") || "[]")
         let filteredData = movie.filter((m) => {
             return m.id != movieObj.id
         })
         localStorage.setItem("movies", JSON.stringify(filteredData));
 
-        this.setState({
-            movies: [...filteredData]
+        filteredData.forEach((movieObj) => {
+            let latestGenre = genreId[movieObj.genre_ids[0]];
+            tempArr.push(latestGenre);
         })
-        console.log("movies", movie);
-    }
-
-    sortRatingDesc=()=>{
-        let temp=this.state.movies;
-        temp.sort(function (objA,objB){
-            return objB.vote_average-objA.vote_average;
-        })
+       let latestTempArr=this.handleDuplicate(tempArr)
+        tempArr.unshift("All Genre");
         this.setState({
-            movies:[...temp]
+            movies: [...filteredData],
+            genre: [...latestTempArr]
         })
     }
 
-    sortRatingAsc=()=>{
-        let temp=this.state.movies;
-        temp.sort(function (objA,objB){
-            return objA.vote_average-objB.vote_average;
+    sortRatingDesc = () => {
+        let temp = this.state.movies;
+        temp.sort(function (objA, objB) {
+            return objB.vote_average - objA.vote_average;
         })
         this.setState({
-            movies:[...temp]
+            movies: [...temp]
         })
     }
 
-    sortPopularityDesc=()=>{
-        let temp=this.state.movies;
-        temp.sort(function (objA,objB){
-            return objB.popularity-objA.popularity;
+    sortRatingAsc = () => {
+        let temp = this.state.movies;
+        temp.sort(function (objA, objB) {
+            return objA.vote_average - objB.vote_average;
         })
         this.setState({
-            movies:[...temp]
+            movies: [...temp]
         })
     }
 
-    sortPopularityAsc=()=>{
-        let temp=this.state.movies;
-        temp.sort(function (objA,objB){
-            return objA.popularity-objB.popularity;
+    sortPopularityDesc = () => {
+        let temp = this.state.movies;
+        temp.sort(function (objA, objB) {
+            return objB.popularity - objA.popularity;
         })
         this.setState({
-            movies:[...temp]
+            movies: [...temp]
         })
     }
-    handleClick=(page)=>{
+
+
+
+    sortPopularityAsc = () => {
+        let temp = this.state.movies;
+        temp.sort(function (objA, objB) {
+            return objA.popularity - objB.popularity;
+        })
         this.setState({
-            currPage:page
+            movies: [...temp]
+        })
+    }
+
+    sortDateAsc=()=>{
+        let temp = this.state.movies;
+        temp.sort(function (objA, objB) {
+            let dateA = new Date(objA.release_date);
+            let dateB = new Date(objB.release_date);
+            return dateA - dateB;
+        })
+        this.setState({
+            movies: [...temp]
+        })
+    }
+    sortDateDesc=()=>{
+        let temp = this.state.movies;
+        temp.sort(function (objA, objB) {
+            let dateA = new Date(objA.release_date);
+            let dateB = new Date(objB.release_date);
+            return dateB - dateA;
+        })
+        this.setState({
+            movies: [...temp]
+        })
+    }
+    handleClick = (page) => {
+        this.setState({
+            currPage: page
         })
     }
 
@@ -144,88 +207,92 @@ class Favourites extends Component {
 
             filterArr = filterArr.filter((movieObj) => movieObj.original_title.toLowerCase().includes(this.state.search.toLowerCase()));
 
-
         }
         if (this.state.currGenre != "All Genre") {
             filterArr = filterArr.filter((movieObj) => genreId[movieObj.genre_ids[0]] == this.state.currGenre) //we get the movies according to the currGenre
         }
         // pagination and numbering logic
 
-        let pages=Math.ceil(filterArr.length / this.state.limit);
-        let pageArr=[];
-        for(let i=1;i<=pages;i++){
+        let pages = Math.ceil(filterArr.length / this.state.limit);
+        let pageArr = [];
+        for (let i = 1; i <= pages; i++) {
             pageArr.push(i)
         }
 
-        let si=(this.state.currPage-1) * this.state.limit;
-        let ei=Number(si)+ Number(this.state.limit);
-        filterArr=filterArr.slice(si,ei);
+        let si = (this.state.currPage - 1) * this.state.limit;
+        let ei = Number(si) + Number(this.state.limit);
+        filterArr = filterArr.slice(si, ei);
 
         return (
             <div>
-                <div className="row favourite-content">
-                    <div className='col-lg-3 col=sm-12 favourite-list'>
-                        {
-                            this.state.genre.map((genre) => (
-                                <ul class="list-group table">
+                {(filterArr.length === 0 && this.state.genre.length === 1) ? <div className='headingStyle'><h1>Please Add the movies to the favourite section</h1></div> :
+                    <div className="row favourite-content">
+                        <div className='col-lg-3 col=sm-12 favourite-list'>
+                            {
+                                this.state.genre.map((genre) => (
+                                    <ul class="list-group table">
 
-                                    {this.state.currGenre === genre
-                                        ?
-                                        <li class="list-group-item" className='all-genre'>{genre}</li>
-                                        :
-                                        <li class="list-group-item remaining-genre" onClick={() => this.handleGenre(genre)}>{genre}</li>
-                                    }
+                                        {this.state.currGenre === genre
+                                            ?
+                                            <li class="list-group-item" className='all-genre'>{genre}</li>
+                                            :
+                                            <li class="list-group-item remaining-genre" onClick={() => this.handleGenre(genre)}>{genre}</li>
+                                        }
 
-                                </ul>
+                                    </ul>
 
-                            ))
-                        }
-                    </div>
-                    <div className='col-lg-9 col-sm-12 favourite-table'>
-                        <div class="input-group flex-nowrap">
-                            <input type="text" placeholder="search movies..."value={this.state.search} onChange={(e) => this.setState({ search: e.target.value })} class="form-control" />
-                            <input type="number" placeholder="Type numbers..." value={this.state.limit}onChange={(e) => this.setState({ limit: e.target.value })} class="form-control" />
+                                ))
+                            }
                         </div>
-                        <div className='row'>
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Title</th>
-                                        <th scope="col">Genre</th>
-                                        <th scope="col"><i class="fas fa-sort-up" onClick={this.sortPopularityDesc}/>Popularity<i class="fas fa-sort-down" onClick={this.sortPopularityAsc}></i></th>
-                                        <th scope="col"><i class="fas fa-sort-up" onClick={this.sortRatingDesc}/>Rating<i class="fas fa-sort-down" onClick={this.sortRatingAsc}></i></th>
-                                        <th scope="col"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+                        <div className='col-lg-9 col-sm-12 favourite-table'>
+                            <div class="input-group flex-nowrap">
+                                <input type="text" placeholder="search movies..." value={this.state.search} onChange={(e) => this.setState({ search: e.target.value })} class="form-control" />
+                                <input type="number" placeholder="Type numbers..." value={this.state.limit} onChange={(e) => this.setState({ limit: e.target.value })} class="form-control" />
+                            </div>
+                            <div className='row'>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Title</th>
+                                            <th scope="col">Genre</th>
+                                            <th scope="col"><i class="fas fa-sort-up" onClick={this.sortPopularityDesc} />Popularity<i class="fas fa-sort-down" onClick={this.sortPopularityAsc}></i></th>
+                                            <th scope="col"><i class="fas fa-sort-up" onClick={this.sortDateDesc} />Release_Date<i class="fas fa-sort-down" onClick={this.sortDateAsc}></i></th>
+                                            <th scope="col"><i class="fas fa-sort-up" onClick={this.sortRatingDesc} />Rating<i class="fas fa-sort-down" onClick={this.sortRatingAsc}></i></th>
+                                            <th scope="col"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
 
-                                    {
-                                        filterArr.map((movieObj) => (
-                                            <tr>
-                                                <td scope="row"><img src={`https://image.tmdb.org/t/p/original${movieObj.backdrop_path}`} alt={movieObj.title} className='table-image' />{movieObj.original_title}</td>
-                                                <td>{genreId[movieObj.genre_ids[0]]}</td>
-                                                <td>{movieObj.popularity}</td>
-                                                <td>{movieObj.vote_average}</td>
-                                                <td><button type="button" class="btn btn-danger" onClick={() => this.handleDelete(movieObj)}>Delete</button></td>
-                                            </tr>
-                                        ))
+                                        {
+                                            filterArr.length===0 ? <div className='favouriteHeading'><h3>No movies found by your Search in this Genre</h3></div>:
+                                            filterArr.map((movieObj) => (
+                                                <tr>
+                                                    <td scope="row"><img src={`https://image.tmdb.org/t/p/original${movieObj.backdrop_path}`} alt={movieObj.title} className='table-image' />{movieObj.original_title}</td>
+                                                    <td>{genreId[movieObj.genre_ids[0]]}</td>
+                                                    <td>{movieObj.popularity}</td>
+                                                    <td>{movieObj.release_date}</td>
+                                                    <td>{movieObj.vote_average}</td>
+                                                    <td><button type="button" class="btn btn-danger" onClick={() => this.handleDelete(movieObj)}>Delete</button></td>
+                                                </tr>
+                                            ))
 
-                                    }
-                                </tbody>
-                            </table>
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination">
-                                    {
-                                        pageArr.map((page)=>(
-                                        <li class="page-item favourite-pagination"><a class="page-link" onClick={()=>this.handleClick(page)}>{page}</a></li>
+                                        }
+                                    </tbody>
+                                </table>
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination">
+                                        {
+                                            pageArr.map((page) => (
+                                                <li class="page-item favourite-pagination"><a class="page-link" onClick={() => this.handleClick(page)}>{page}</a></li>
 
-                                        ))
-                                    }
-                                </ul>
-                            </nav>
+                                            ))
+                                        }
+                                    </ul>
+                                </nav>
+                            </div>
                         </div>
                     </div>
-                </div>
+                }
             </div>
         )
     }
