@@ -12,7 +12,8 @@ export default class Movies extends Component {
             isLoading: false,
             totalResults: 0,
             pageSize: 20
-        }
+        };
+        this.observer = null;
     }
     loadNews = async () => {
         this.setState({
@@ -120,7 +121,7 @@ export default class Movies extends Component {
                                 }
                             </div>
                             <div className='infinite-loader'>
-                                {!this.state.isLoading && (<h1>Loading...............</h1>)}
+                                {!this.state.isLoading && (<h3><i class="fas fa-heart"></i></h3>)}
                             </div>
                         </div>
                 }

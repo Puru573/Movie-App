@@ -262,14 +262,16 @@ class Favourites extends Component {
                                 <input type="number" placeholder="Type numbers..." value={this.state.limit} onChange={this.handleLimit} className="form-control" />
                             </div>
                             <div className='row'>
+                            <div class="table-responsive">
+
                                 <table className="table">
                                     <thead>
                                         <tr>
                                             <th scope="col">Title</th>
                                             <th scope="col">Genre</th>
-                                            <th scope="col"><i className="fas fa-sort-up" onClick={this.sortPopularityDesc} />Popularity<i className="fas fa-sort-down" onClick={this.sortPopularityAsc}></i></th>
-                                            <th scope="col"><i className="fas fa-sort-up" onClick={this.sortDateDesc} />Release_Date<i className="fas fa-sort-down" onClick={this.sortDateAsc}></i></th>
-                                            <th scope="col"><i className="fas fa-sort-up" onClick={this.sortRatingDesc} />Rating<i className="fas fa-sort-down" onClick={this.sortRatingAsc}></i></th>
+                                            <th class="interacting"scope="col"><i className="fas fa-sort-up" onClick={this.sortPopularityDesc} />Popularity<i className="fas fa-sort-down" onClick={this.sortPopularityAsc}></i></th>
+                                            <th class="interacting"scope="col"><i className="fas fa-sort-up" onClick={this.sortDateDesc} />Release_Date<i className="fas fa-sort-down" onClick={this.sortDateAsc}></i></th>
+                                            <th class="interacting"scope="col"><i className="fas fa-sort-up" onClick={this.sortRatingDesc} />Rating<i className="fas fa-sort-down" onClick={this.sortRatingAsc}></i></th>
                                             <th scope="col"></th>
                                         </tr>
                                     </thead>
@@ -291,6 +293,7 @@ class Favourites extends Component {
                                         }
                                     </tbody>
                                 </table>
+                            </div>
                                 <nav aria-label="Page navigation example">
                                     <ul className="pagination">
                                         {
