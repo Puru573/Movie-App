@@ -8,14 +8,16 @@ html,body{
   width: 100%;
   height: 100%;
   overflow-x: hidden;
+  background-color: #121212;
+  color:#FFF;
 }
 
 .navbar{
   display: flex;
   justify-content: flex-start;
   gap:4rem;
-  background-color: bisque;
-
+  background-color: #1F2B3A;
+  padding: 0.5rem;
 } 
 
 
@@ -23,12 +25,22 @@ html,body{
   font-size:30px;
   font-weight: bold;
   text-decoration: none;
+  color:#ffff !important;
+
+}
+.movie:hover{
+  color:aliceblue !important;
 }
 .favourite{
   margin-top:3px;
   font-size:28px;
   font-weight: bold;
   text-decoration: none;
+  color:#ffff !important;
+
+}
+.favourite:hover{
+  color:aliceblue !important;
 }
 h2{
   margin-top: 5px;
@@ -41,7 +53,6 @@ h1,h2{
 .card-banner{
   height: 70vh;
   width:100vw ;
-  margin-top: 1vh;
   margin-bottom: 1vh;
   color:white;
 }
@@ -83,13 +94,14 @@ h1,h2{
   display: flex;
   flex-wrap: wrap;
   padding: 1rem;
-  justify-content: center;
+  justify-content: space-evenly;
 }
 
 .Movie-card{
   position: relative;
-  width:25vw;
   margin: 1rem;
+  flex: 0 0 400px;
+  transition: transform 0.2s ease-in-out;
 }
 .movie-title{
   position: absolute;
@@ -97,6 +109,9 @@ h1,h2{
   font-size:20px;
   text-align: center;
   bottom: 6rem;
+}
+.Movie-card:hover {
+  transform: scale(1.02);
 }
 .movie-date{
   color: white;
@@ -121,6 +136,20 @@ h1,h2{
 .table-image{
   width:8rem;
 }
+li.list-group-item.remaining-genre {
+  color: #ffff;
+  background-color: dimgrey;
+}
+/* Apply a transition to all list items within the favourite section */
+.favourite-list .list-group-item {
+  transition: transform 0.2s ease-in-out;
+}
+
+/* On hover, focus, or when the item is marked as active, scale it slightly */
+.favourite-list .list-group-item:hover,
+.favourite-list .list-group-item:focus {
+  transform: scale(1.02);
+}
 .favourite-list{
   padding:3rem;
 }
@@ -131,11 +160,11 @@ h1,h2{
   padding:3rem;
   overflow-y: auto;
 }
-.table{
+th.interacting{
   cursor: pointer;
 }
 .all-genre{
-  background-color: blue;
+  background-color: black;
   font-weight: bold;
   color:white
 }
@@ -156,15 +185,94 @@ h1,h2{
 .infinite-loader{
   text-align: center;
 }
-@media screen and (max-width:400px) {
+i.fas.fa-heart {
+  font-size: 2rem;
+  color: red;
+}
+.input-group{
+  margin-bottom:1rem ;
+  font-size: 16px;
+}
+.pagination{
+  display: flex;
+  justify-content: center;
+}
+table.table {
+  background-color:  #222222 !important;
+  --bs-table-bg: none;
+  --bs-table-color:none;
+}
+ thead {
+  background-color: #333333;   /* A bit lighter for the header */
+}
+.input-group input {
+  background-color: darkgray;
+  font-weight: bold;
+  padding: 0.3rem;
+  font-size: 18px;
+}
+.input-group input:focus{
+  background-color: darkgray;
+  outline: none;
+  border-color: white !important;
+  box-shadow: none !important;
+}
+a.page-link {
+  background-color: lightgrey;
+  color: black;
+}
+@keyframes heartbeat {
+  0% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.1);
+  }
+  40% {
+    transform: scale(1);
+  }
+  60% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
 
-  .navbar{
+.infinite-loader h3 {
+  display: inline-block;
+  animation: heartbeat 1.5s ease-in-out infinite;
+  color: #fff;
+}
+
+@media (max-width: 992px) {
+  .Movie-card {
+    flex: 0 0 calc(40% - 1rem);
+  }
+}
+
+/* Mobile landscape: two cards per row */
+@media (max-width: 768px) {
+  .Movie-card {
+    flex: 0 0 calc(80% - 1rem);
+  }
+  .pagination{
     display: flex;
-    justify-content: flex-start;
-    gap:1rem;
-    background-color: bisque;
-  
-  } 
+    justify-content: center;
+    margin-top: 10px;
+  }
+}
+
+/* Mobile portrait: one card per row */
+@media (max-width: 480px) {
+  .Movie-List{
+    transform: translateX(-3%);
+  }
+  .Movie-card {
+    flex: 0 0 calc(100% - 1rem);
+  }
+}
+@media screen and (max-width:400px) {
   .headingStyle{
     text-align: center;
   }
@@ -177,9 +285,6 @@ h1,h2{
     display: flex;
     flex-direction: column;
     overflow-y: auto;
-    width: 100vw;
-  }
-  .input-group{
     width: 100vw;
   }
   .Movie-card{
@@ -230,10 +335,6 @@ h1,h2{
     display: flex;
     justify-content: center;
     width: 100%;
-  }
-
-  .movie-img{
-    width:35vw
   }
   .Movie-List{
     margin: 0 auto;
@@ -242,12 +343,14 @@ h1,h2{
 
 }
 @media screen and (max-width:426px) {
+  .movie{
+    font-size: 25px;
+  }
+  .favourite{
+    font-size: 23px;
+  }
   .navbar{
-    display: flex;
-    justify-content: flex-start;
     gap:1rem;
-    background-color: bisque;
-  
   } 
   .headingStyle{
     text-align: center;
@@ -261,9 +364,6 @@ h1,h2{
     display: flex;
     flex-direction: column;
     overflow-y: auto;
-  }
-  .input-group{
-    width: 100vw;
   }
   .Movie-card{
     display: flex;
@@ -316,7 +416,7 @@ h1,h2{
   }
 
   .movie-img{
-    width:35vw
+    width:100%;
   }
   .Movie-List{
     margin: 0 auto;
